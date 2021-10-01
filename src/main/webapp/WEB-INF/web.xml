@@ -12,4 +12,16 @@
 	</servlet-mapping>
 	<!-- 게시판 작성/수정 E  -->
 	<!-- 서블릿 E -->
+	<!-- 필터 S --> 
+	<!-- 사이트 메인 필터 S -->
+	<filter>
+		<filter-name>Site_Main</filter-name>
+		<filter-class>com.filter.SiteMainFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>Site_Main</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!--  사이트 메인 필터 E -->
+	<!-- 필터 E  -->
 </web-app>
