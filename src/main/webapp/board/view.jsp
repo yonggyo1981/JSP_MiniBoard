@@ -17,4 +17,5 @@
 	<dt>내용</dt>
 	<dd>${board.content}</dd>
 </dl>
+<a href='delete?idx=${board.idx}' onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
 <a href='list'>게시글 목록</a>
