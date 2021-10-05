@@ -1,6 +1,9 @@
 package com.model.dto;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 /**
  * 게시판 Bean 클래스 
@@ -15,8 +18,16 @@ public class Board {
 	
 	public Board() {}
 	
-	public Board(ResultSet rs) {
-		
+	public Board(ResultSet rs) throws SQLException {
+		if (rs.next()) {
+			idx = rs.getInt("idx");
+			poster = rs.getString("poster");
+			subject = rs.getString("subject");
+			content = rs.getString("content");
+			Date date = rs.getDate("regDt");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+			regDt = sdf.format(date);
+		}
 	}
 	
 	public Board(int idx, String poster, String subject, String content, String regDt) {
