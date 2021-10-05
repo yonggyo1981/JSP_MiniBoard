@@ -36,19 +36,25 @@ public class SiteMainFilter implements Filter {
 		request.setAttribute("siteURL", siteURL);
 		
 		String method = null;
+		boolean isScriptCss = false;
 		if (request instanceof HttpServletRequest) {
 			HttpServletRequest req = (HttpServletRequest)request;
 			method = req.getMethod().toUpperCase();
+			String URI = req.getRequestURI();
+			// js(자바스크립트), css(스타일시트) 헤더, 푸터가 추가되지 않도록 처리
+			if (URI.indexOf(".js") != -1 || URI.indexOf(".css") != -1) {
+				isScriptCss = true;
+			}
 		}
 		
-		if (method != null && method.equals("GET")) {
+		if (method != null && method.equals("GET") && !isScriptCss) {
 			RequestDispatcher header = request.getRequestDispatcher("/outline/header.jsp");
 			header.include(request, response);
 		}
 		
 		chain.doFilter(request, response);
 		
-		if (method != null && method.equals("GET")) {
+		if (method != null && method.equals("GET") && !isScriptCss) {
 			RequestDispatcher footer = request.getRequestDispatcher("/outline/footer.jsp");
 			footer.include(request, response);
 		}
