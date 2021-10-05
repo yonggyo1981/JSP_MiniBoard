@@ -11,6 +11,16 @@
 		<url-pattern>/board/write</url-pattern>
 	</servlet-mapping>
 	<!-- 게시판 작성/수정 E  -->
+	<!-- 게시글 조회 S  -->
+	<servlet>
+		<servlet-name>Board_View</servlet-name>
+		<servlet-class>com.controller.ViewController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Board_View</servlet-name>
+		<url-pattern>/board/view</url-pattern>
+	</servlet-mapping>
+	<!-- 게시글 조회 E -->
 	<!-- 서블릿 E -->
 	<!-- 필터 S --> 
 	<!-- 사이트 메인 필터 S -->
