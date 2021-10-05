@@ -23,7 +23,11 @@ public class SiteMainFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
 		response.setContentType("text/html; charset=utf-8");
-	
+		
+		// 사이트 root URL 
+		String siteURL = request.getServletContext().getContextPath();
+		request.setAttribute("siteURL", siteURL);
+		
 		String method = null;
 		if (request instanceof HttpServletRequest) {
 			HttpServletRequest req = (HttpServletRequest)request;
