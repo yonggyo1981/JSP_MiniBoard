@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import com.model.dao.BoardDAO;
 
@@ -33,7 +34,13 @@ public class WriteController extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
 		BoardDAO dao = new BoardDAO();
-		dao.write(request);
+		int idx = dao.write(request);
+		if (idx > 0) { // 게시글 등록 성공 -> 게시글 보기 페이지로 이동 
+			out.print("<script>parent.location.href='view?idx="+ idx + "';</script>");
+		} else { // 게시글 등록 실패
+			out.print("<script>alert('게시글 등록 실패!');</script>");
+		}
 	}
 }
