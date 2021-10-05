@@ -5,6 +5,8 @@ import com.core.*;
 import java.io.IOException;
 import java.sql.*;
 
+import com.model.dto.Board;
+
 /**
  * 게시판 DAO
  *
@@ -46,4 +48,34 @@ public class BoardDAO {
 		}
 		return idx;
 	}
+	
+	/**
+	 * 게시글 조회 
+	 * 
+	 * @param idx
+	 * @return
+	 */
+	public Board get(int idx) {
+		Board board = null;
+		String sql = "SELECT * FROM board WHERE idx = ?";
+		try (Connection conn = DB.getConnection();
+			 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, idx);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				
+			}
+			rs.close();
+			
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return board;
+	}
 }
+
+
+
+
+
