@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import com.model.dao.BoardDAO;
+import com.model.dto.Board;
 
 /**
  * 게시글 보기 
@@ -29,7 +30,10 @@ public class ViewController extends HttpServlet {
 		}
 		
 		// 게시글 번호 -> 게시글 조회
+		BoardDAO dao = new BoardDAO();
 		int idx = Integer.parseInt(request.getParameter("idx"));
+		Board board = dao.get(idx);
+		request.setAttribute("board", board);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/board/view.jsp");
 		rd.include(request, response);
