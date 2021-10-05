@@ -2,7 +2,7 @@ package com.model.dto;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
 /**
@@ -24,7 +24,7 @@ public class Board {
 			poster = rs.getString("poster");
 			subject = rs.getString("subject");
 			content = rs.getString("content");
-			Date date = rs.getDate("regDt");
+			Timestamp date = rs.getTimestamp("regDt");
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 			regDt = sdf.format(date);
 		}
