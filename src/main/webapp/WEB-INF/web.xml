@@ -21,6 +21,16 @@
 		<url-pattern>/board/view</url-pattern>
 	</servlet-mapping>
 	<!-- 게시글 조회 E -->
+	<!--  게시글 목록 S -->
+	<servlet>
+		<servlet-name>Board_List</servlet-name>
+		<servlet-class>com.controller.ListController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Board_List</servlet-name>
+		<url-pattern>/board/list</url-pattern>
+	</servlet-mapping>
+	<!--  게시글 목록 E -->
 	<!-- 서블릿 E -->
 	<!-- 필터 S --> 
 	<!-- 사이트 메인 필터 S -->

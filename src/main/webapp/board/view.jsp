@@ -17,4 +17,4 @@
 	<dt>내용</dt>
 	<dd>${board.content}</dd>
 </dl>
-
+<a href='list'>게시글 목록</a>

@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.core.*;
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
 
 import com.model.dto.Board;
 
@@ -64,8 +65,9 @@ public class BoardDAO {
 			 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, idx);
 			ResultSet rs = pstmt.executeQuery();
-			board = new Board(rs);
-			
+			if (rs.next()) {
+				board = new Board(rs);
+			}
 			rs.close();
 			
 		} catch (SQLException | ClassNotFoundException e) {
@@ -73,6 +75,30 @@ public class BoardDAO {
 		}
 		
 		return board;
+	}
+	
+	/**
+	 * 게시글 목록
+	 *  
+	 * @return 
+	 */
+	public ArrayList<Board> getList() {
+		ArrayList<Board> list = new ArrayList<>();
+		
+		String sql = "SELECT * FROM board ORDER BY idx DESC";
+		try(Connection conn = DB.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) { // 다음 투플이 있으면 true -> 다음으로 이동
+				list.add(new Board(rs));
+			}
+			rs.close();
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 }
 

@@ -19,7 +19,7 @@ public class Board {
 	public Board() {}
 	
 	public Board(ResultSet rs) throws SQLException {
-		if (rs.next()) {
+		if (rs != null) {
 			idx = rs.getInt("idx");
 			poster = rs.getString("poster");
 			subject = rs.getString("subject");

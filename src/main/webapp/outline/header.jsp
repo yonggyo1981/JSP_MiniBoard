@@ -9,6 +9,7 @@
 		<meta charset='utf-8' />
 		<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 		<link rel="stylesheet" type="text/css" href="<%=siteURL%>/css/style.css" />
+		<script type="text/javascript" src="/MiniBoard/js/common.js"></script>
 		<title>미니 게시판!!</title>
 	</head>
 	<body>
