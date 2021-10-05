@@ -42,7 +42,7 @@ public class SiteMainFilter implements Filter {
 			method = req.getMethod().toUpperCase();
 			String URI = req.getRequestURI();
 			// js(자바스크립트), css(스타일시트) 헤더, 푸터가 추가되지 않도록 처리
-			if (URI.indexOf(".js") != -1 || URI.indexOf(".css") != -1) {
+			if (URI.indexOf(".js") != -1 || URI.indexOf(".css") != -1 || URI.indexOf(".png") != -1) {
 				isScriptCss = true;
 			}
 		}
