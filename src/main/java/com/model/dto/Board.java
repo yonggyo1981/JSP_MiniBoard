@@ -1,5 +1,7 @@
 package com.model.dto;
 
+import java.sql.ResultSet;
+
 /**
  * 게시판 Bean 클래스 
  *
@@ -12,6 +14,10 @@ public class Board {
 	private String regDt; // 게시글 등록일자
 	
 	public Board() {}
+	
+	public Board(ResultSet rs) {
+		
+	}
 	
 	public Board(int idx, String poster, String subject, String content, String regDt) {
 		this.idx = idx;

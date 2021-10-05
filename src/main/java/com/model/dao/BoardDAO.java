@@ -41,6 +41,8 @@ public class BoardDAO {
 				if (rs.next()) {
 					idx = rs.getInt(1);
 				}
+				
+				rs.close();
 			}
 		} catch (IOException | SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
@@ -62,9 +64,8 @@ public class BoardDAO {
 			 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, idx);
 			ResultSet rs = pstmt.executeQuery();
-			if (rs.next()) {
-				
-			}
+			board = new Board(rs);
+			
 			rs.close();
 			
 		} catch (SQLException | ClassNotFoundException e) {
