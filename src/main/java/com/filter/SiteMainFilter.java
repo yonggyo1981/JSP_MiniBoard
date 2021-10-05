@@ -10,14 +10,21 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+import com.core.*;
+
 /**
  *  사이트 전역 필터
  * 
  */
 public class SiteMainFilter implements Filter {
+	private FilterConfig filterConfig;
+	
 	@Override
-	public void init(FilterConfig filterconfig) throws ServletException {
+	public void init(FilterConfig filterConfig) throws ServletException {
+		this.filterConfig = filterConfig;
 		
+		/** 데이터 베이스 설정 초기화 */
+		DB.init(filterConfig);
 	}
 	
 	@Override
