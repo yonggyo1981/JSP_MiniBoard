@@ -7,6 +7,8 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import java.io.IOException;
 
+import com.model.dao.BoardDAO;
+
 /***
  * 게시글 작성 컨트롤러(서블릿)
  * 
@@ -31,6 +33,7 @@ public class WriteController extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		BoardDAO dao = new BoardDAO();
+		dao.write(request);
 	}
 }
