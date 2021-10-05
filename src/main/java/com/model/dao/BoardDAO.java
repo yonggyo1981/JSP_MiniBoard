@@ -18,13 +18,28 @@ public class BoardDAO {
 	 */
 	public int write(HttpServletRequest request) {
 		int idx = 0;
-		String sql = "";
+		String sql = "INSERT INTO board (poster, subject, content) VALUES(?, ?, ?)";
 		try(Connection conn = DB.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 			request.setCharacterEncoding("UTF-8");
-		
-		
-		
+			String poster = request.getParameter("poster");
+			String subject = request.getParameter("subject");
+			String content = request.getParameter("content");
+			pstmt.setString(1, poster);
+			pstmt.setString(2, subject);
+			pstmt.setString(3, content);
+			
+			int result = pstmt.executeUpdate();
+			if (result > 0) { // 게시글 등록이 잘 된 경우 
+				ResultSet rs = pstmt.getGeneratedKeys();
+				/**
+				 *  // .next() -> 다음 투플로 있으면 true, 이동
+				 *  // .getXxx(속성 순서 번호(1~), 속성명)
+				 */
+				if (rs.next()) {
+					idx = rs.getInt(1);
+				}
+			}
 		} catch (IOException | SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 			
