@@ -100,6 +100,30 @@ public class BoardDAO {
 		
 		return list;
 	}
+	
+	/**
+	 * 게시글 삭제 
+	 * 
+	 * @param idx 게시글 번호
+	 * @return true - 삭제 성공, false - 삭제 실패
+	 */
+	public boolean delete(int idx) {
+		
+		String sql = "DELETE FROM board WHERE idx = ?";
+		try (Connection conn = DB.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, idx);
+			
+			int rs = pstmt.executeUpdate();
+			if (rs > 0) 
+				return true;
+			
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
 }
 
 

@@ -31,6 +31,16 @@
 		<url-pattern>/board/list</url-pattern>
 	</servlet-mapping>
 	<!--  게시글 목록 E -->
+	<!--  게시글 삭제 S -->
+	<servlet>
+		<servlet-name>Board_Delete</servlet-name>
+		<servlet-class>com.controller.DeleteController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Board_Delete</servlet-name>
+		<url-pattern>/board/delete</url-pattern>
+	</servlet-mapping>
+	<!--  게시글 삭제 E -->
 	<!-- 서블릿 E -->
 	<!-- 필터 S --> 
 	<!-- 사이트 메인 필터 S -->
