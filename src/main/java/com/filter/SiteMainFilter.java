@@ -30,7 +30,6 @@ public class SiteMainFilter implements Filter {
 	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
-		response.setContentType("text/html; charset=utf-8");
 		
 		// 사이트 root URL 
 		String siteURL = request.getServletContext().getContextPath();
@@ -54,7 +53,8 @@ public class SiteMainFilter implements Filter {
 	public void outlineHeader(ServletRequest request, ServletResponse response) throws ServletException, IOException {
 		if (isOutlineRequired(request)) { // 헤더 추가 조건일 때만 추가 
 			response.setContentType("text/html; charset=utf-8");
-			RequestDispatcher header = request.getRequestDispatcher("/outline/header.jsp");
+			String headerFile = isPopup(request)?"/outline/popup_header.jsp":"/outline/header.jsp";
+			RequestDispatcher header = request.getRequestDispatcher(headerFile);
 			header.include(request, response);
 		}
 	}
@@ -67,7 +67,8 @@ public class SiteMainFilter implements Filter {
 	 */
 	public void outlineFooter(ServletRequest request, ServletResponse response) throws ServletException, IOException {
 		if (isOutlineRequired(request)) { // 푸터 추가조건일 때 추가 
-			RequestDispatcher footer = request.getRequestDispatcher("/outline/footer.jsp");
+			String footerFile = isPopup(request)?"/outline/popup_footer.jsp":"/outline/footer.jsp";
+			RequestDispatcher footer = request.getRequestDispatcher(footerFile);
 			footer.include(request, response);
 		}
 	}
@@ -102,4 +103,28 @@ public class SiteMainFilter implements Filter {
 		
 		return true;
 	}
+	
+	/**
+	 * 팝업 페이지인지 체크 
+	 * 
+	 * @param request
+	 * @return true - 팝업, false - 일반 페이지
+	 */
+	public boolean isPopup(ServletRequest request) {
+		if (request instanceof HttpServletRequest) {
+			HttpServletRequest req = (HttpServletRequest)request;
+			String URI = req.getRequestURI();
+			if (URI.indexOf("/popup") != -1) { // URI 경로에 popup이 포함된 경우  
+				return true;
+			}
+		}
+		
+		
+		return false;
+	}
 }
+
+
+
+
+
