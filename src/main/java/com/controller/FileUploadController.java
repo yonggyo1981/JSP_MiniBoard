@@ -35,6 +35,7 @@ public class FileUploadController extends HttpServlet {
 		if (uploadedFiles == null) { // 업로드된 파일이 없는 경우, 이미지 파일이 아닌 경우
 			out.print("<script>alert('업로드 실패!');</script>");
 		} else { // 업로드가 된 경우 
+			out.print("<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js\"></script>");
 			out.printf("<script>parent.parent.callbackUploadImages('%s')</script>", uploadedFiles);
 		}
 	}
