@@ -48,6 +48,8 @@ const layer = {
 			padding: "20px",
 		});
 		
+		const popupHtml = `<iframe src='${url}' width='${width}' height='${height}' frameborder='0' scrolling='auto'></iframe>`;
+		$("#layer_popup").html(popupHtml);
 	},
 	/**
 		레이어 팝업 닫기
