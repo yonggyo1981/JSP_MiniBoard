@@ -7,6 +7,14 @@ const layer = {
 		레이어 팝업열기  
 	*/
 	popup : function(url, width, height) {
+		
+		// URL이 없으면 팝업 처리 중단
+		if (!url)
+			return;
+		
+		width = width || 350;
+		height = height || 350;
+		
 		/** 레이어 팝업 백그라운드  */
 		if ($("#layer_dim").length == 0) { // layer_dim이 없는 경우만 동적으로 추가 
 			$("body").append("<div id='layer_dim'></div>");			
