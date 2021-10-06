@@ -26,7 +26,7 @@ public class FileManager {
 		ServletFileUpload upload = new ServletFileUpload(factory);
 		upload.setHeaderEncoding("UTF-8");
 		// setSizeMax, setFileSizeMax 
-		upload.setSizeMax()
+		upload.setSizeMax(MAX_UPLOAD_SIZE);
 		
 		return null;
 	}
