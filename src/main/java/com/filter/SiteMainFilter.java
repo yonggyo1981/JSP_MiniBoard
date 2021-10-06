@@ -36,10 +36,12 @@ public class SiteMainFilter implements Filter {
 		String siteURL = request.getServletContext().getContextPath();
 		request.setAttribute("siteURL", siteURL);
 		
+		// 헤더 출력 
 		outlineHeader(request, response);
 		
 		chain.doFilter(request, response);
 		
+		// 푸터 출력
 		outlineFooter(request, response);
 	}
 	
@@ -49,8 +51,12 @@ public class SiteMainFilter implements Filter {
 	 * @param request
 	 * @param response
 	 */
-	public void outlineHeader(ServletRequest request, ServletResponse response) {
-		
+	public void outlineHeader(ServletRequest request, ServletResponse response) throws ServletException, IOException {
+		if (isOutlineRequired(request)) { // 헤더 추가 조건일 때만 추가 
+			response.setContentType("text/html; charset=utf-8");
+			RequestDispatcher header = request.getRequestDispatcher("/outline/header.jsp");
+			header.include(request, response);
+		}
 	}
 	
 	/**
@@ -59,8 +65,11 @@ public class SiteMainFilter implements Filter {
 	 * @param request
 	 * @param response
 	 */
-	public void outlineFooter(ServletRequest request, ServletResponse response) {
-		
+	public void outlineFooter(ServletRequest request, ServletResponse response) throws ServletException, IOException {
+		if (isOutlineRequired(request)) { // 푸터 추가조건일 때 추가 
+			RequestDispatcher footer = request.getRequestDispatcher("/outline/footer.jsp");
+			footer.include(request, response);
+		}
 	}
 	
 	/**
