@@ -18,6 +18,7 @@ import com.core.*;
  */
 public class SiteMainFilter implements Filter {
 	private FilterConfig filterConfig;
+	private String[] staticDirs = { "resources" }; // 정적 디렉토리(헤더, 푸터 제외)
 	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -35,28 +36,61 @@ public class SiteMainFilter implements Filter {
 		String siteURL = request.getServletContext().getContextPath();
 		request.setAttribute("siteURL", siteURL);
 		
-		String method = null;
-		boolean isScriptCss = false;
-		if (request instanceof HttpServletRequest) {
-			HttpServletRequest req = (HttpServletRequest)request;
-			method = req.getMethod().toUpperCase();
-			String URI = req.getRequestURI();
-			// js(자바스크립트), css(스타일시트) 헤더, 푸터가 추가되지 않도록 처리
-			if (URI.indexOf(".js") != -1 || URI.indexOf(".css") != -1 || URI.indexOf(".png") != -1) {
-				isScriptCss = true;
-			}
-		}
-		
-		if (method != null && method.equals("GET") && !isScriptCss) {
-			RequestDispatcher header = request.getRequestDispatcher("/outline/header.jsp");
-			header.include(request, response);
-		}
+		outlineHeader(request, response);
 		
 		chain.doFilter(request, response);
 		
-		if (method != null && method.equals("GET") && !isScriptCss) {
-			RequestDispatcher footer = request.getRequestDispatcher("/outline/footer.jsp");
-			footer.include(request, response);
+		outlineFooter(request, response);
+	}
+	
+	/**
+	 * 공통 헤더 처리 
+	 * 
+	 * @param request
+	 * @param response
+	 */
+	public void outlineHeader(ServletRequest request, ServletResponse response) {
+		
+	}
+	
+	/**
+	 * 공통 푸터 처리 
+	 * 
+	 * @param request
+	 * @param response
+	 */
+	public void outlineFooter(ServletRequest request, ServletResponse response) {
+		
+	}
+	
+	/**
+	 * 헤더, 푸터가 필요한지 여부 체크 
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public boolean isOutlineRequired(ServletRequest request) {
+		/**
+		 * 1. GET 방식이 아닌 경우 false (HttpServletRequest - getMethod())
+		 * 2. 정적 경로에 해당하는 URI 인 경우 false (HttpServletRequest - getRequestURI())
+		 */
+		if (request instanceof HttpServletRequest) {
+			HttpServletRequest req = (HttpServletRequest)request;
+			
+			/** 메서드가 GET 방식이 아닌 경우 헤더, 푸터 제외 */
+			String method = req.getMethod().toUpperCase();
+			if (!method.equals("GET")) 
+				return false;
+			
+			/** RequestURI에 정적 디렉토리가 포함 되어 있으면 제외 */
+			String URI = req.getRequestURI();
+			for (String dir : staticDirs) {
+				if (URI.indexOf("/" + dir) != -1) { // 정적 디렉토리가 포함된 경우
+					return false;
+				}
+			}
 		}
+		
+		return true;
 	}
 }
