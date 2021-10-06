@@ -24,8 +24,9 @@ public class FileManager {
 	 * @param request
 	 * @return 업로드된 파일 URL 
 	 */
-	public static String[] upload(HttpServletRequest request) {
+	public static String upload(HttpServletRequest request) {
 		
+		StringBuilder sb = new StringBuilder();
 		try {
 			DiskFileItemFactory factory = new DiskFileItemFactory();
 			ServletFileUpload upload = new ServletFileUpload(factory);
@@ -33,6 +34,9 @@ public class FileManager {
 			// setSizeMax, setFileSizeMax 
 			upload.setSizeMax(MAX_UPLOAD_SIZE);
 		
+			String uploadPath = request.getServletContext().getRealPath(File.separator + "resources" + File.separator + "upload");
+			// 기준 경로가 현재 웹 폴더(src/main/webapp/resources/upload
+			
 			List<FileItem> items = upload.parseRequest(request);
 			Iterator<FileItem> params = items.iterator();
 			while(params.hasNext()) {
@@ -43,6 +47,16 @@ public class FileManager {
 					postData.put(key, value);
 				} else { // 파일 데이터 
 					
+					/**
+					 * 1. 저장할 파일 경로 -> File 인스턴스로 생성(실제 업로드된 파일명) (O)
+					 * 2. FileItem item . write(File 인스턴스); -> 지정된 파일 경로 업로드 
+					 */
+					String fileName = item.getName(); // 업로드된 경로 포함 파일 명 
+					// C:\desktop\....\folder\folder\1.png
+					fileName = System.currentTimeMillis() + "_" + fileName.substring(fileName.lastIndexOf(File.separator) + 1);
+					
+					File file = new File(uploadPath + File.separator + fileName);
+					item.write(file);
 				}
 			}
 			
