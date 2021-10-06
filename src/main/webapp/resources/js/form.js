@@ -3,6 +3,6 @@ $(function() {
 	CKEDITOR.config.height = 300;
 	
 	$(".addImage").click(function() {
-		layer.popup("popup_upload", 350, 350);	
+		layer.popup("../popup/upload", 350, 350); // /MiniBoard/popup/upload
 	});
 });
