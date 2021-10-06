@@ -36,9 +36,14 @@ public class FileManager {
 		
 			String uploadPath = request.getServletContext().getRealPath(File.separator + "resources" + File.separator + "upload");
 			// 기준 경로가 현재 웹 폴더(src/main/webapp/resources/upload
+			String uploadURL = request.getServletContext().getContextPath() + "/resources/upload";
+			// ContextPath - > /MiniBoard
+		
 			
 			List<FileItem> items = upload.parseRequest(request);
 			Iterator<FileItem> params = items.iterator();
+			
+			boolean isFirstFile = true; // 처음 처리되는 파일 여부
 			while(params.hasNext()) {
 				FileItem item = params.next();
 				if (item.isFormField()) { // 일반 양식 데이터 
@@ -49,7 +54,9 @@ public class FileManager {
 					
 					/**
 					 * 1. 저장할 파일 경로 -> File 인스턴스로 생성(실제 업로드된 파일명) (O)
-					 * 2. FileItem item . write(File 인스턴스); -> 지정된 파일 경로 업로드 
+					 * 2. FileItem item . write(File 인스턴스); -> 지정된 파일 경로 업로드
+					 * 3. 반환할 파일 업로드 정보
+					 * 				1) 업로드된 파일 FULL URL 
 					 */
 					String fileName = item.getName(); // 업로드된 경로 포함 파일 명 
 					// C:\desktop\....\folder\folder\1.png
@@ -57,12 +64,21 @@ public class FileManager {
 					
 					File file = new File(uploadPath + File.separator + fileName);
 					item.write(file);
+					
+					if (!isFirstFile) {
+						sb.append("||");
+					}
+					
+					sb.append(uploadURL + "/" + fileName);	
+					
+					isFirstFile = false;
+					
 				}
 			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return sb.toString();
 	}
 }
