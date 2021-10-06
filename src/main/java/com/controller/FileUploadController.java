@@ -27,7 +27,8 @@ public class FileUploadController extends HttpServlet {
 	
 	/** 업로드 처리 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		FileManager.upload(request);
+		String uploadedFiles = FileManager.upload(request);
+		System.out.println(uploadedFiles);
 	}
 }
 

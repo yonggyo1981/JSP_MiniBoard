@@ -58,10 +58,17 @@ public class FileManager {
 					 * 3. 반환할 파일 업로드 정보
 					 * 				1) 업로드된 파일 FULL URL 
 					 */
+					
+					String contentType = item.getContentType();  // image/png, image/jpeg ... 					
+					if (contentType.indexOf("image") == -1) { // 이미지 파일이 아닌 경우 건너 뛰기
+						continue;
+					}
+					
+					
 					String fileName = item.getName(); // 업로드된 경로 포함 파일 명 
 					// C:\desktop\....\folder\folder\1.png
 					fileName = System.currentTimeMillis() + "_" + fileName.substring(fileName.lastIndexOf(File.separator) + 1);
-					
+										
 					File file = new File(uploadPath + File.separator + fileName);
 					item.write(file);
 					
