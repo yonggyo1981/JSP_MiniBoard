@@ -7,6 +7,8 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import java.io.IOException;
 
+import com.core.FileManager;
+
 /**
  * 파일 업로드 처리 
  *
@@ -25,7 +27,7 @@ public class FileUploadController extends HttpServlet {
 	
 	/** 업로드 처리 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		FileManager.upload(request);
 	}
 }
 
