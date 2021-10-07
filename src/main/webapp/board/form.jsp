@@ -4,10 +4,14 @@
 <%
 	String siteURL = (String)request.getAttribute("siteURL");
 	Board board = (Board)request.getAttribute("board");
+	String action = (String)request.getAttribute("action");
 %>
 <c:set var="board" value="<%=board%>" />
 <script src="<%=siteURL%>/resources/js/form.js"></script>
-<form name='writeFrm' method="post" action="write" target='ifrmHidden' autocomplete='off'>
+<form name='writeFrm' method="post" action="<%=action%>" target='ifrmHidden' autocomplete='off'>
+	<c:if test="${board != null}">
+		<input type='hidden' name='idx' value="<c:out value='${board.idx}' />" />
+	</c:if>
 	<dl>
 		<dt>제목</dt>
 		<dd>

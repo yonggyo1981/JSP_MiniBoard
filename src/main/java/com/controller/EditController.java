@@ -35,6 +35,7 @@ public class EditController extends HttpServlet {
 		}
 		
 		request.setAttribute("board", board);
+		request.setAttribute("action", "edit");
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/board/form.jsp");
 		rd.include(request, response);
@@ -42,6 +43,7 @@ public class EditController extends HttpServlet {
 	
 	/** 게시글 수정 처리 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		BoardDAO dao = new BoardDAO();
+		boolean result = dao.edit(request);
 	}
 }
