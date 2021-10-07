@@ -27,6 +27,12 @@ public class EditController extends HttpServlet {
 		}
 	
 		int idx = Integer.parseInt(request.getParameter("idx")); // 게시글 번호
+		BoardDAO dao = new BoardDAO();
+		Board board = dao.get(idx);
+		if (board == null) { // 없는 게시글 일때 
+			out.print("<script>alert('없는 게시글 입니다.');history.back();</script>");
+			return;
+		}
 		
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/board/form.jsp");
