@@ -44,6 +44,8 @@ public class EditController extends HttpServlet {
 	/** 게시글 수정 처리 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=utf-8");
+		request.setCharacterEncoding("UTF-8");
+		
 		int idx = Integer.parseInt(request.getParameter("idx"));
 		
 		PrintWriter out = response.getWriter();

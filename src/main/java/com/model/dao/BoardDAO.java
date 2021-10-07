@@ -66,6 +66,7 @@ public class BoardDAO {
 		String sql = "UPDATE board SET poster = ?, subject = ?,  content = ? WHERE idx = ?";
 		try (Connection conn = DB.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			request.setCharacterEncoding("UTF-8");
 			int idx = Integer.parseInt(request.getParameter("idx"));
 			pstmt.setString(1, request.getParameter("poster"));
 			pstmt.setString(2, request.getParameter("subject"));
@@ -75,7 +76,7 @@ public class BoardDAO {
 			int rs = pstmt.executeUpdate(); // rs 1 이상 -> 반영 성공
 			if (rs > 0)
 				return true;
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
