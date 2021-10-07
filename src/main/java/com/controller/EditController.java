@@ -43,7 +43,23 @@ public class EditController extends HttpServlet {
 	
 	/** 게시글 수정 처리 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html; charset=utf-8");
+		int idx = Integer.parseInt(request.getParameter("idx"));
+		
+		PrintWriter out = response.getWriter();
+		
 		BoardDAO dao = new BoardDAO();
 		boolean result = dao.edit(request);
+		
+		if (result) { // 수정 성공 
+			out.print("<script>parent.location.href='view?idx=" + idx + "';</script>");
+		} else { // 수정 실패 
+			out.print("<script>alert('수정 실패!!');</script>");
+		}
 	}
 }
+
+
+
+
+
