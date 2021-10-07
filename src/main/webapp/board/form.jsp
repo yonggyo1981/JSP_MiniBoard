@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	String siteURL = (String)request.getAttribute("siteURL");
 %>
@@ -7,7 +8,7 @@
 	<dl>
 		<dt>제목</dt>
 		<dd>
-			<input type="text" name="subject">
+			<input type="text" name="subject" value="<c:out value='' />">
 		</dd>
 	</dl>
 	<dl>
