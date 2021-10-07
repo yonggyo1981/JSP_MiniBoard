@@ -34,6 +34,7 @@ public class EditController extends HttpServlet {
 			return;
 		}
 		
+		request.setAttribute("board", board);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/board/form.jsp");
 		rd.include(request, response);
